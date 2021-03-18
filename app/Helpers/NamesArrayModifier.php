@@ -56,7 +56,6 @@ class NamesArrayModifier
      */
     private function convertNames(bool $denumeralize): void
     {
-        $names = [];
         $sizeOfNames = sizeof($this->names);
 
         for ($i = 0; $i < $sizeOfNames; $i++) {
@@ -68,10 +67,8 @@ class NamesArrayModifier
                 $nameElements[1] = RomanNumeral::convertNumberToNumeral($nameElements[1]);
             }
 
-            $names[] = implode(' ',$nameElements);
+            $this->names[$i] = implode(' ',$nameElements);
         }
-
-        $this->names = $names;
     }
 
     /**
