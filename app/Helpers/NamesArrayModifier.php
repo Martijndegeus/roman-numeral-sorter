@@ -8,6 +8,10 @@ class NamesArrayModifier
 {
     private $names;
 
+    /**
+     * NamesArrayModifier constructor.
+     * @param array $names
+     */
     public function __construct(array $names)
     {
         $this->names = $names;
@@ -15,6 +19,11 @@ class NamesArrayModifier
         return $this;
     }
 
+    /**
+     * Sorts the given list of names and numerals
+     *
+     * @return array
+     */
     public function sort(): array
     {
         $this->denumeralizeNames();
@@ -24,16 +33,27 @@ class NamesArrayModifier
         return $this->names;
     }
 
+    /**
+     * Converts the numerals in the names to integers
+     */
     private function denumeralizeNames(): void
     {
         $this->convertNames(true);
     }
 
+    /**
+     * Converts the integers in the names to numerals
+     */
     private function numeralizeNames(): void
     {
         $this->convertNames(false);
     }
 
+    /**
+     * Converts between numerals and integers
+     *
+     * @param bool $denumeralize
+     */
     private function convertNames(bool $denumeralize): void
     {
         $names = [];
@@ -54,6 +74,9 @@ class NamesArrayModifier
         $this->names = $names;
     }
 
+    /**
+     * Orders the list of names - with integers
+     */
     private function orderNames()
     {
         usort($this->names, function ($a, $b){

@@ -16,6 +16,11 @@ class NumberController extends Controller
         'JAMES XIV',
     ];
 
+    /**
+     * Returns the list ordered alphabetically
+     *
+     * @return array
+     */
     public function getOrderedList(): array
     {
         $array = new NamesArrayModifier(self::NAMES);
