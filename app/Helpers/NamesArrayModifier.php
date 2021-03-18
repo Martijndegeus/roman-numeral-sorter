@@ -26,27 +26,27 @@ class NamesArrayModifier
      */
     public function sort(): array
     {
-        $this->denumeralizeNames();
-        $this->orderNames();
-        $this->numeralizeNames();
-
-        return $this->names;
+        return $this
+            ->denumeralizeNames()
+            ->orderNames()
+            ->numeralizeNames()
+            ->getNames();
     }
 
     /**
-     * Converts the numerals in the names to integers
+     * @return array
      */
-    private function denumeralizeNames(): void
+    public function getNames(): array
     {
-        $this->convertNames(true);
+        return $this->names;
     }
 
     /**
      * Converts the integers in the names to numerals
      */
-    private function numeralizeNames(): void
+    private function numeralizeNames(): NamesArrayModifier
     {
-        $this->convertNames(false);
+        return $this->convertNames(false);
     }
 
     /**
@@ -54,7 +54,7 @@ class NamesArrayModifier
      *
      * @param bool $denumeralize
      */
-    private function convertNames(bool $denumeralize): void
+    private function convertNames(bool $denumeralize): NamesArrayModifier
     {
         $sizeOfNames = sizeof($this->names);
 
@@ -67,17 +67,29 @@ class NamesArrayModifier
                 $nameElements[1] = RomanNumeral::convertNumberToNumeral($nameElements[1]);
             }
 
-            $this->names[$i] = implode(' ',$nameElements);
+            $this->names[$i] = implode(' ', $nameElements);
         }
+
+        return $this;
     }
 
     /**
      * Orders the list of names - with integers
      */
-    private function orderNames()
+    private function orderNames(): NamesArrayModifier
     {
-        usort($this->names, function ($a, $b){
+        usort($this->names, function ($a, $b) {
             return $a <=> $b;
         });
+
+        return $this;
+    }
+
+    /**
+     * Converts the numerals in the names to integers
+     */
+    private function denumeralizeNames(): NamesArrayModifier
+    {
+        return $this->convertNames(true);
     }
 }
